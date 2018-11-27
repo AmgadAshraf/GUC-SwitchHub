@@ -3,11 +3,18 @@ package main
 import (
 	"database/sql"
 	"log"
+	"net/http"
 
 	_ "github.com/lib/pq"
 )
 
 func main() {
+
+	http.HandleFunc("/", defaultHandler) // default directory
+	http.ListenAndServe(":3000", nil)
+}
+
+func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("postgres", "user=root password=secret dbname=GUCSwitchHubDB sslmode=disable")
 
 	if err != nil {
