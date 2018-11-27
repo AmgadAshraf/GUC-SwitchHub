@@ -14,14 +14,14 @@ CREATE TABLE met (
     englishlevel VARCHAR(10),
     email VARCHAR(50) PRIMARY KEY,
     remainingswitches int DEFAULT 2
-);
+);*/
 
-/*INSERT INTO SignedUp VALUES
+INSERT INTO signedup VALUES
 ('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','password123'),
-('Akram','Ashraf','37-2076','akramashraf96@gmail.com','password123');
+('Akram','Ashraf','37-2076','akramashraf96@gmail.com','password12345');
 
 
-DROP SCHEMA public CASCADE;
+/*DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 
 */

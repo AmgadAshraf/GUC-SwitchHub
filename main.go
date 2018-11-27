@@ -2,19 +2,25 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
 )
 
+const (
+	dbHost     = "db"
+	dbUser     = "root"
+	dbPassword = "secret"
+	dbName     = "GUCSwitchHubDB"
+)
+
 func main() {
-	db, err := sql.Open("postgres", "user=root password=secret dbname=GUCSwitchHubDB sslmode=disable")
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbName)
 
-	err = db.Ping()
+	db, err := sql.Open("postgres", dbInfo)
 
 	if err != nil {
 		log.Fatal(err)

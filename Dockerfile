@@ -12,7 +12,6 @@ RUN go get -u github.com/kardianos/govendor
 WORKDIR /go/src/app
 COPY . .
 
-EXPOSE 8080
 # Install dependencies
 RUN govendor sync
 
