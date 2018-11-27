@@ -7,7 +7,7 @@ CREATE TABLE signedup (
 
 );
 
-CREATE TABLE readyforswitch (
+CREATE TABLE switching (
     id VARCHAR(10) UNIQUE NOT NULL,
 
     major VARCHAR(10)  NOT NULL,
@@ -20,13 +20,12 @@ CREATE TABLE readyforswitch (
     remainingswitches int DEFAULT 2
 );
 
-
-INSERT INTO SignedUp VALUES
+INSERT INTO signedup VALUES
 ('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','password123'),
-('Akram','Ashraf','37-2076','akramashraf96@gmail.com','password123');
+('Akram','Ashraf','37-2076','akramashraf96@gmail.com','password12345');
 
-/*
-DROP SCHEMA public CASCADE;
+
+/*DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 */
 
