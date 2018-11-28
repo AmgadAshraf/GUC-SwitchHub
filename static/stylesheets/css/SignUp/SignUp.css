@@ -30,8 +30,18 @@ ul {
   padding-left: 0;
   margin-bottom: 0; }
 
+  a:link, a:visited {
+   
+    
+    padding: 0px 120px;
+    text-align: center; 
+    text-decoration: none;
+    display: flex;
+}
+
 a:hover {
-  text-decoration: none; }
+  text-decoration: none;
+ }
 
 :focus {
   outline: none; }
