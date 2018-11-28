@@ -3,9 +3,10 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-	"html/template"
+
 	_ "github.com/lib/pq"
 )
 
@@ -16,29 +17,21 @@ const (
 	dbName     = "GUCSwitchHubDB"
 )
 
-var tpl *template.Template
-
-func init() {
-    var err error
-    tpl, err = template.ParseFiles(
-        "template/SignIn.html")
-    if err != nil {
-        panic(err) // handle error
-    }
-}
-
-
-func SignIn (w http.ResponseWriter,r*http.Request){
-	tpl.ExecuteTemplate(w, "SignIn.html",nil)
+//SignIn handler
+func SignIn(w http.ResponseWriter, r *http.Request) {
+	tpl, err := template.ParseFiles(
+		"/go/src/app/SignIn.html")
+	if err != nil {
+		panic(err) // handle error
+	}
+	tpl.ExecuteTemplate(w, "SignIn.html", nil)
 
 }
-
-
 
 func main() {
 
 	http.HandleFunc("/", SignIn)
-	http.ListenAndServe(":3000",nil)
+	http.ListenAndServe(":8080", nil)
 
 	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbUser, dbPassword, dbName)
