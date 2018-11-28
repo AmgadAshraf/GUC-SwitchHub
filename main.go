@@ -21,15 +21,15 @@ var tpl *template.Template
 func init() {
     var err error
     tpl, err = template.ParseFiles(
-        "template/SignUp.html")
+        "template/SignIn.html")
     if err != nil {
         panic(err) // handle error
     }
 }
 
 
-func SignUp (w http.ResponseWriter,r*http.Request){
-	tpl.ExecuteTemplate(w, "SignUp.html",nil)
+func SignIn (w http.ResponseWriter,r*http.Request){
+	tpl.ExecuteTemplate(w, "SignIn.html",nil)
 
 }
 
@@ -37,7 +37,7 @@ func SignUp (w http.ResponseWriter,r*http.Request){
 
 func main() {
 
-	http.HandleFunc("/", SignUp)
+	http.HandleFunc("/", SignIn)
 	http.ListenAndServe(":3000",nil)
 
 	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
