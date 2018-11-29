@@ -25,8 +25,12 @@ FROM alpine
 
 # Copy built executable from base image to here
 COPY --from=builder /go/src/app/GUC-SwitchHub /
-COPY templates/SignIn.html /go/src/app/
-COPY templates/SignUp.html /go/src/app/
+COPY templates/SignIn.html /go/src/app/templates/
+COPY templates/SignUp.html /go/src/app/templates/
+COPY templates/SignUp.css /go/src/app/templates/
+COPY templates/SignUp.scss /go/src/app/templates/
+COPY templates/SignUp.css.map /go/src/app/templates/
+COPY templates/Home.html /go/src/app/templates/
 
 # Run the app
 CMD ["/GUC-SwitchHub" ]
