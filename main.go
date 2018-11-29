@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"github.com/GeertJohan/go.rice"
+   "github.com/gorilla/mux"
 
 	_ "github.com/lib/pq"
 )
@@ -28,10 +30,28 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func SignUp(w http.ResponseWriter, r *http.Request) {
+	tpl, err := template.ParseFiles(
+		"/go/src/app/SignUp.html")
+	if err != nil {
+		panic(err) // handle error
+	}
+	tpl.ExecuteTemplate(w, "SignUp.html", nil)
+
+}
+
 func main() {
 
-	http.HandleFunc("/", SignIn)
-	http.ListenAndServe(":8080", nil)
+	router := mux.NewRouter()
+    router.PathPrefix("/").Handler(http.FileServer(rice.MustFindBox("templates").HTTPBox()))
+	//log.Fatal(http.ListenAndServe(":8080", router))
+	
+	
+	
+	
+	//router.HandleFunc("/", SignIn)
+	//http.HandleFunc("/", SignIn)
+	http.ListenAndServe(":8080", router)
 
 	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbUser, dbPassword, dbName)
