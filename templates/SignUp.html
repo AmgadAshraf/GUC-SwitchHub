@@ -19,33 +19,28 @@
 				<div class="image-holder">
 					<img src="images/front.jpg" alt="">
 				</div>
-				<form action="">
+				<form action="/SignUp" method="POST">
                     <h3>Create Account</h3>
                     
 					<div class="form-group">
-						<input type="text" placeholder="First Name" class="form-control">
-						<input type="text" placeholder="Last Name" class="form-control">
+						<input type="text" name="firstname" placeholder="First Name">
+						<input type="text" name="lastname" placeholder="Last Name">
 					</div>
 					<div class="form-wrapper">
-						<input type="text" placeholder="GUC ID" class="form-control">
-						<i class="zmdi zmdi-account"></i>
+						<input type="text" name="GUCID" placeholder="GUC ID">
 					</div>
 					<div class="form-wrapper">
-						<input type="text" placeholder="Email Address" class="form-control">
-						<i class="zmdi zmdi-email"></i>
+						<input type="text" name="signupemail" placeholder="Email Address">
 					</div>
 				
 					<div class="form-wrapper">
-						<input type="password" placeholder="Password" class="form-control">
+						<input type="password" name="signuppassword" placeholder="Password">
 						<i class="zmdi zmdi-lock"></i>
 					</div>
-					<div class="form-wrapper">
-						<input type="password" placeholder="Confirm Password" class="form-control">
-						<i class="zmdi zmdi-lock"></i>
-					</div>
-					<button>Register
-						<i class="zmdi zmdi-arrow-right"></i>
-					</button>
+
+
+					<input type="submit" value="Sign Up">
+					
 				
 				</form>
 			</div>

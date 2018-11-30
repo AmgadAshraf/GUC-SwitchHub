@@ -30,9 +30,65 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//SignUpLoader handler
+func SignUpLoader(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecuteTemplate(w, "SignUp.html", nil)
+}
+
 //SignUp handler
 func SignUp(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecuteTemplate(w, "SignUp.html", nil)
+
+	fnameValues := r.FormValue("firstname")
+	lnameValues := r.FormValue("lastname")
+	gucidValues := r.FormValue("GUCID")
+	emailValues := r.FormValue("signupemail")
+	passwordValues := r.FormValue("signuppassword")
+
+	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbName)
+
+	db, err := sql.Open("postgres", dbInfo)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	var returnedID string
+	err = db.QueryRow(`SELECT id FROM signedup WHERE id=$1;`, gucidValues).Scan(&returnedID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+
+		} else {
+			http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+			return
+		}
+
+	} else {
+		http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+		return
+	}
+	var returnedEmail string
+	err = db.QueryRow(`SELECT email FROM signedup WHERE email=$1;`, emailValues).Scan(&returnedEmail)
+	if err != nil {
+		if err == sql.ErrNoRows {
+
+		} else {
+			http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+			return
+		}
+
+	} else {
+		http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+		return
+	}
+
+	sqlStatement := `INSERT into signedup(fname, lname, id, email, userpassword)
+	VALUES($1,$2,$3,$4,$5)`
+	_, err = db.Exec(sqlStatement, fnameValues, lnameValues, gucidValues, emailValues, passwordValues)
+	if err != nil {
+		log.Fatal(err)
+	}
+	http.Redirect(w, r, "/Home", http.StatusSeeOther)
+	http.StatusText(200)
 
 }
 
@@ -54,44 +110,45 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	rows, err := db.Query("SELECT email, userpassword FROM signedup")
+	var returnedEmail string
+	var returnedPassword string
+	err = db.QueryRow(`SELECT email, userpassword FROM signedup WHERE email=$1;`, emailValue).Scan(&returnedEmail, &returnedPassword)
 
 	if err != nil {
+		if err == sql.ErrNoRows {
+			//http.Error(w, "You are not registred. Please Sign Up", http.StatusForbidden)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return
+		}
 		log.Fatal(err)
 		return
 	}
-	var (
-		emaildb    string
-		passworddb string
-	)
 
-	for rows.Next() {
-
-		if err := rows.Scan(&emaildb, &passworddb); err != nil {
-			//Zero rows
-			log.Fatal(err)
-			log.Printf("Fadya")
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-			http.Error(w, "Forbidden", http.StatusForbidden)
-			return
-		}
-
-		if emaildb == emailValue && passworddb == passwordValue {
-			log.Printf("Matched")
-			tpl.ExecuteTemplate(w, "Home.html", nil)
-
-		} else {
-			log.Printf("Not Matched")
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-		}
-
+	if emailValue == "" || passwordValue == "" {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
 	}
+
+	if returnedEmail == emailValue && returnedPassword != passwordValue {
+		//http.Error(w, "Incorrect Password", http.StatusForbidden)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	if returnedEmail == emailValue && returnedPassword == passwordValue {
+		tpl.ExecuteTemplate(w, "Home.html", nil)
+		http.StatusText(200)
+		return
+	}
+
+	//http.Redirect(w, r, "/", http.StatusSeeOther)
+
 }
 func main() {
 
 	http.HandleFunc("/", SignIn)
-	http.HandleFunc("/SignUp.html", SignUp)
+	http.HandleFunc("/SignUp", SignUp)
+	http.HandleFunc("/SignUpLoader", SignUpLoader)
 	http.HandleFunc("/Home", Home)
 	http.ListenAndServe(":8080", nil)
 }

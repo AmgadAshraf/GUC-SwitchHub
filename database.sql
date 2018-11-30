@@ -16,14 +16,13 @@ CREATE TABLE switching (
     email VARCHAR(50) PRIMARY KEY,
     remainingswitches int DEFAULT 2,
     didswitch BOOLEAN DEFAULT false NOT NULL
-);
+);*/
 
-INSERT INTO signedup VALUES
-('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','password123'),
-('Akram','Ashraf','37-2076','akramashraf96@gmail.com','password12345');
-
+/*INSERT INTO signedup(fname, lname, id, email, userpassword)
+VALUES
+('Akram','Ashraf','37-2076','akramashraf96@gmail.com','pass123'),
+('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','pass12');
+*/
 
 /*DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-
-*/
+CREATE SCHEMA public;*/
