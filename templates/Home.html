@@ -4,6 +4,52 @@
 
 <h1>Welcome To GUC Switch Hub!</h1>
 
+<form action="/SendSwitchRequest" method="POST">
+
+                    <div class="form-wrapper">
+						<select name="major" required>
+                        <option value="met">MET</option>
+                        <option value="iet">IET</option>
+                        <option value="ems">EMS</option>
+                         <option value="general">General Engineering</option>
+                        </select>
+					</div>
+
+                    <div class="form-wrapper">
+						<input type="number" name="currentTut" placeholder="Current Tutorial" required>
+					</div>
+
+                    <div class="form-wrapper">
+						<input type="number" name="desiredTut" placeholder="Desired Tutorial" required>
+					</div>
+
+                    <div class="form-wrapper">
+						<select name="englishlevel" required>
+                        <option value="ae">AE</option>
+                        <option value="as">AS</option>
+                        <option value="sm">SM</option>
+                        <option value="cps">CPS</option>
+                         <option value="rpw">RPW</option>
+                         <option value="noenglish">None</option>
+                        </select>
+					</div>
+
+                    <div class="form-wrapper">
+                    <select name="germanlevel" required>
+                        <option value="g1">German 1</option>
+                        <option value="g2">German 2</option>
+                        <option value="g3">German 3</option>
+                        <option value="g4">German 4</option>
+                        <option value="nogerman">None</option>
+                        </select>
+						
+					</div>
+
+                    <input type="submit" value="Submit Request">
+
+
+</form>
+
 
 </body>
 </html>

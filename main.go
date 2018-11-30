@@ -17,6 +17,8 @@ const (
 	dbName     = "GUCSwitchHubDB"
 )
 
+var sessionEmail string
+
 var tpl *template.Template
 
 func init() {
@@ -136,6 +138,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if returnedEmail == emailValue && returnedPassword == passwordValue {
+		sessionEmail = emailValue
 		tpl.ExecuteTemplate(w, "Home.html", nil)
 		http.StatusText(200)
 		return
@@ -144,11 +147,198 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	//http.Redirect(w, r, "/", http.StatusSeeOther)
 
 }
+
+//SendSwitchRequest handler
+func SendSwitchRequest(w http.ResponseWriter, r *http.Request) {
+
+	majorValue := r.FormValue("major")
+	currentTutValue := r.FormValue("currentTut")
+	desiredTutValue := r.FormValue("desiredTut")
+	englishLevelValue := r.FormValue("englishlevel")
+	germanLevelValue := r.FormValue("germanlevel")
+
+	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbName)
+
+	db, err := sql.Open("postgres", dbInfo)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	var returnedUserID string
+	err = db.QueryRow(`SELECT id FROM signedup WHERE email=$1;`, sessionEmail).Scan(&returnedUserID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			//http.Error(w, "You are not registred. Please Sign Up", http.StatusForbidden)
+			return
+		}
+		log.Fatal(err)
+		return
+	}
+	var recievedEmail string
+	err = db.QueryRow(`SELECT email FROM switching WHERE email=$1;`, sessionEmail).Scan(&recievedEmail)
+	if err != nil {
+		if err == sql.ErrNoRows {
+
+		} else {
+			http.Redirect(w, r, "/Warning", http.StatusSeeOther)
+			return
+		}
+
+	} else {
+		http.Redirect(w, r, "/Warning", http.StatusSeeOther)
+		return
+	}
+
+	sqlStatement := `INSERT into switching(id, major, tutorialfrom, tutorialto, germanlevel,englishlevel,email)
+	VALUES($1,$2,$3,$4,$5,$6,$7)`
+	_, err = db.Exec(sqlStatement, returnedUserID, majorValue, currentTutValue, desiredTutValue, germanLevelValue, englishLevelValue, sessionEmail)
+	if err != nil {
+		http.Redirect(w, r, "/Warning", http.StatusSeeOther)
+		log.Fatal(err)
+		return
+	}
+
+	rows, err := db.Query("SELECT * from switching")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var (
+		idCmpr        string
+		majorCmpr     string
+		tfCmpr        string
+		ttCmpr        string
+		germanCmpr    string
+		englishCmpr   string
+		emailCmpr     string
+		didSwitchCmpr bool
+		emailconf     bool
+	)
+	for rows.Next() {
+
+		if err := rows.Scan(&idCmpr, &majorCmpr, &tfCmpr, &ttCmpr, &germanCmpr, &englishCmpr, &emailCmpr, &didSwitchCmpr, &emailconf); err != nil {
+			log.Fatal(err)
+		}
+
+		dashValue := returnedUserID[0:2]
+		dashCompare := idCmpr[0:2]
+
+		if dashValue == dashCompare && majorValue == majorCmpr &&
+			germanLevelValue == germanCmpr && englishLevelValue == englishCmpr &&
+			didSwitchCmpr == false && currentTutValue == ttCmpr && desiredTutValue == tfCmpr {
+
+			sqlStatement1 := `UPDATE switching SET tutorialfrom = $1, tutorialto = $2, didswitch = $3 WHERE email = $4;`
+
+			_, err = db.Exec(sqlStatement1, "SWITCHED", "SWITCHED", true, sessionEmail)
+			if err != nil {
+				panic(err)
+			}
+
+			_, err = db.Exec(sqlStatement1, "SWITCHED2", "SWITCHED2", true, emailCmpr)
+			if err != nil {
+				panic(err)
+			}
+
+			rows, err := db.Query("SELECT * from switching")
+			if err != nil {
+				log.Fatal(err)
+
+			}
+
+			var (
+				id        string
+				major     string
+				tf        string
+				tt        string
+				g         string
+				e         string
+				email     string
+				did       bool
+				emailconf bool
+			)
+			for rows.Next() {
+
+				if err := rows.Scan(&id, &major, &tf, &tt, &g, &e, &email, &did, &emailconf); err != nil {
+					log.Fatal(err)
+				}
+				log.Printf("%s", id)
+				log.Printf("%s", major)
+				log.Printf("%s", tf)
+				log.Printf("%s", tt)
+				log.Printf("%s", g)
+				log.Printf("%s", e)
+				log.Printf("%s", email)
+				log.Printf("%t", did)
+				log.Printf("%t", emailconf)
+				log.Printf("FASEL")
+
+			}
+
+		} else {
+			log.Printf("madkhalsh")
+
+			rows, err := db.Query("SELECT * from switching")
+			if err != nil {
+				log.Fatal(err)
+			}
+			var (
+				id        string
+				major     string
+				tf        string
+				tt        string
+				g         string
+				e         string
+				email     string
+				did       bool
+				emailconf bool
+			)
+
+			for rows.Next() {
+
+				if err := rows.Scan(&id, &major, &tf, &tt, &g, &e, &email, &did, &emailconf); err != nil {
+					log.Fatal(err)
+				}
+				log.Printf("%s", id)
+				log.Printf("%s", major)
+				log.Printf("%s", tf)
+				log.Printf("%s", tt)
+				log.Printf("%s", g)
+				log.Printf("%s", e)
+				log.Printf("%s", email)
+				log.Printf("%t", did)
+				log.Printf("%t", emailconf)
+				log.Printf("FASEL")
+
+			}
+
+		}
+
+	}
+
+	http.Redirect(w, r, "/Final", http.StatusSeeOther)
+	return
+
+}
+
+//Final Handler
+func Final(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecuteTemplate(w, "Final.html", nil)
+}
+
+//Warning Handler
+func Warning(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecuteTemplate(w, "Warning.html", nil)
+}
+
 func main() {
 
 	http.HandleFunc("/", SignIn)
 	http.HandleFunc("/SignUp", SignUp)
 	http.HandleFunc("/SignUpLoader", SignUpLoader)
 	http.HandleFunc("/Home", Home)
+	http.HandleFunc("/SendSwitchRequest", SendSwitchRequest)
+	http.HandleFunc("/Final", Final)
+	http.HandleFunc("/Warning", Warning)
 	http.ListenAndServe(":8080", nil)
 }

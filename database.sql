@@ -1,22 +1,22 @@
-/*CREATE TABLE signedup (
-    fname VARCHAR(15) NOT NULL,
-    lname VARCHAR(15) NOT NULL,
-    id VARCHAR(10) UNIQUE NOT NULL,
-    email VARCHAR(50) PRIMARY KEY ,
-    userpassword VARCHAR(50) NOT NULL
+CREATE TABLE signedup (
+    fname VARCHAR NOT NULL,
+    lname VARCHAR NOT NULL,
+    id VARCHAR UNIQUE NOT NULL,
+    email VARCHAR PRIMARY KEY ,
+    userpassword VARCHAR NOT NULL
 );
 
 CREATE TABLE switching (
-    id VARCHAR(10) UNIQUE NOT NULL,
-    major VARCHAR(10)  NOT NULL,
-    tutorialfrom VARCHAR(5) NOT NULL,
-    tutorialto VARCHAR(5) NOT NULL,
-    germanlevel INTEGER NOT NULL,
-    englishlevel VARCHAR(10) NOT NULL,
-    email VARCHAR(50) PRIMARY KEY,
-    remainingswitches int DEFAULT 2,
-    didswitch BOOLEAN DEFAULT false NOT NULL
-);*/
+    id VARCHAR UNIQUE NOT NULL,
+    major VARCHAR  NOT NULL,
+    tutorialfrom VARCHAR NOT NULL,
+    tutorialto VARCHAR NOT NULL,
+    germanlevel VARCHAR NOT NULL,
+    englishlevel VARCHAR NOT NULL,
+    email VARCHAR PRIMARY KEY NOT NULL,
+    didswitch BOOLEAN DEFAULT false,
+    sentconfirmationemail BOOLEAN DEFAULT false
+);
 
 /*INSERT INTO signedup(fname, lname, id, email, userpassword)
 VALUES
