@@ -8,14 +8,13 @@ RUN apk --no-cache -U add git
 # Install package manager
 RUN go get -u github.com/kardianos/govendor
 
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 
-RUN update-ca-certificates
+
 # Copy app files into container
 WORKDIR /go/src/app
 COPY . .
 
-RUN update-ca-certificates
+
 
 
 # Install dependencies
@@ -30,6 +29,8 @@ RUN govendor build -o /go/src/app/GUC-SwitchHub
 
 # Smallest container image
 FROM alpine
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+RUN update-ca-certificates
 
 # Copy built executable from base image to here
 COPY --from=builder /go/src/app/GUC-SwitchHub /
@@ -41,6 +42,7 @@ COPY templates/SignUp.css.map /go/src/app/templates/
 COPY templates/Home.html /go/src/app/templates/
 COPY templates/Final.html /go/src/app/templates/
 COPY templates/Warning.html /go/src/app/templates/
+
 
 
 # Run the app
