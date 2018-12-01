@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	_ "github.com/lib/pq"
+	gomail "gopkg.in/gomail.v2"
 )
 
 const (
@@ -246,6 +247,21 @@ func SendSwitchRequest(w http.ResponseWriter, r *http.Request) {
 
 			}
 
+			m := gomail.NewMessage()
+			m.SetHeader("From", "gucswitchhub@gmail.com")
+			m.SetHeader("To", sessionEmail, emailCmpr)
+			m.SetHeader("Subject", "Congratulations!")
+			m.SetBody("text/plain", "Hello candidate, your tutorial have been successefully switched!")
+
+			d := gomail.NewDialer("smtp.gmail.com", 587, "gucswitchhub@gmail.com", "GucSwitchHub2018")
+
+			// Send the email to Bob, Cora and Dan.
+			if err := d.DialAndSend(m); err != nil {
+				panic(err)
+			}
+
+			log.Printf("SENT!")
+
 			var (
 				id        string
 				major     string
@@ -341,4 +357,5 @@ func main() {
 	http.HandleFunc("/Final", Final)
 	http.HandleFunc("/Warning", Warning)
 	http.ListenAndServe(":8080", nil)
+
 }
