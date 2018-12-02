@@ -235,11 +235,10 @@ func SendSwitchRequest(w http.ResponseWriter, r *http.Request) {
 		englishCmpr   string
 		emailCmpr     string
 		didSwitchCmpr bool
-		emailconf     bool
 	)
 	for rows.Next() {
 
-		if err := rows.Scan(&idCmpr, &majorCmpr, &tfCmpr, &ttCmpr, &germanCmpr, &englishCmpr, &emailCmpr, &didSwitchCmpr, &emailconf); err != nil {
+		if err := rows.Scan(&idCmpr, &majorCmpr, &tfCmpr, &ttCmpr, &germanCmpr, &englishCmpr, &emailCmpr, &didSwitchCmpr); err != nil {
 			log.Fatal(err)
 		}
 
@@ -268,7 +267,7 @@ func SendSwitchRequest(w http.ResponseWriter, r *http.Request) {
 				panic(err)
 			}
 
-			_, err = db.Exec(sqlStatement1, "SWITCHED2", "SWITCHED2", true, emailCmpr)
+			_, err = db.Exec(sqlStatement1, "SWITCHED", "SWITCHED", true, emailCmpr)
 			if err != nil {
 				panic(err)
 			}
@@ -301,22 +300,21 @@ func SendSwitchRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		id          string
-		major       string
-		tf          string
-		tt          string
-		g           string
-		e           string
-		email       string
-		did         bool
-		emailconfpr bool
+		id    string
+		major string
+		tf    string
+		tt    string
+		g     string
+		e     string
+		email string
+		did   bool
 	)
 	for rows1.Next() {
 
-		if err := rows1.Scan(&id, &major, &tf, &tt, &g, &e, &email, &did, &emailconfpr); err != nil {
+		if err := rows1.Scan(&id, &major, &tf, &tt, &g, &e, &email, &did); err != nil {
 			log.Fatal(err)
 		}
-		log.Printf("ID: %s Major: %s From: %s To: %s German: %s English: %s Email: %s DidSwitch: %t EmailConf: %t", id, major, tf, tt, g, e, email, did, emailconfpr)
+		log.Printf("ID: %s Major: %s From: %s To: %s German: %s English: %s Email: %s DidSwitch: %t", id, major, tf, tt, g, e, email, did)
 
 	}
 	log.Printf("FASEL")
