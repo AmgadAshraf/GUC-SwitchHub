@@ -8,19 +8,12 @@ RUN apk --no-cache -U add git
 # Install package manager
 RUN go get -u github.com/kardianos/govendor
 
-
-
 # Copy app files into container
 WORKDIR /go/src/app
 COPY . .
 
-
-
-
 # Install dependencies
 RUN govendor sync
-
-
 
 # Build the app
 RUN govendor build -o /go/src/app/GUC-SwitchHub
@@ -42,8 +35,6 @@ COPY templates/SignUp.css.map /go/src/app/templates/
 COPY templates/Home.html /go/src/app/templates/
 COPY templates/Final.html /go/src/app/templates/
 COPY templates/Warning.html /go/src/app/templates/
-
-
 
 # Run the app
 CMD ["/GUC-SwitchHub" ]
