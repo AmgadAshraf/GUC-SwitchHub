@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html>
+        <head>
+                <meta charset="utf-8">
+                <title>GUC Switch Hub</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
+                <!-- MATERIAL DESIGN ICONIC FONT -->
+                <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+        
+                <!-- STYLE CSS -->
+                <link rel="stylesheet" href="SignUp.css">
+                
+            </head>
 <body>
 
-<h1>Welcome To GUC Switch Hub!</h1>
 
-<form action="/SendSwitchRequest" method="POST">
 
-                    <div class="form-wrapper">
+        <div class="wrapper" style="background-image: url('../static/stylesheets/css/SignUp/images/background.jpg');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="images/front.jpg" alt="">
+				</div>
+                <form action="/SendSwitchRequest" method="POST">
+                    <br>
+                </br>
+                <br>
+            </br>
+         
+          
+                    <h3>Welcome To GUC Switch Hub!</h3>
+
+
+                    <div class="test" >
+
+
+                    <div class="" >
 						<select name="major" required>
                         <option value="met">MET</option>
                         <option value="iet">IET</option>
@@ -23,7 +51,7 @@
 						<input type="number" name="desiredTut" placeholder="Desired Tutorial" required>
 					</div>
 
-                    <div class="form-wrapper">
+                    <div class="">
 						<select name="englishlevel" required>
                         <option value="ae">AE</option>
                         <option value="as">AS</option>
@@ -34,7 +62,7 @@
                         </select>
 					</div>
 
-                    <div class="form-wrapper">
+                    <div class="">
                     <select name="germanlevel" required>
                         <option value="g1">German 1</option>
                         <option value="g2">German 2</option>
@@ -43,12 +71,18 @@
                         <option value="nogerman">None</option>
                         </select>
 						
-					</div>
+                    </div>
+                </div>
 
-                    <input type="submit" value="Submit Request">
+                    <button>Submit Request
+                            <i class="zmdi zmdi-arrow-right"></i>
+                        </button>
 
 
 </form>
+</div>
+</div>
+
 
 
 </body>

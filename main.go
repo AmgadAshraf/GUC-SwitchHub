@@ -10,7 +10,7 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	gomail "gopkg.in/gomail.v2"
+	"gopkg.in/gomail.v2"
 )
 
 //Config JSON
@@ -50,6 +50,7 @@ func init() {
 
 //SignIn handler
 func SignIn(w http.ResponseWriter, r *http.Request) {
+
 	tpl.ExecuteTemplate(w, "SignIn.html", nil)
 
 }
@@ -141,7 +142,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			//http.Error(w, "You are not registred. Please Sign Up", http.StatusForbidden)
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			http.Redirect(w, r, "/SignIn.html", http.StatusSeeOther)
 			return
 		}
 		log.Fatal(err)
@@ -149,13 +150,13 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if emailValue == "" || passwordValue == "" {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/SignIn.html", http.StatusSeeOther)
 		return
 	}
 
 	if returnedEmail == emailValue && returnedPassword != passwordValue {
 		//http.Error(w, "Incorrect Password", http.StatusForbidden)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/wrongPassword.html", http.StatusSeeOther)
 		return
 	}
 
@@ -336,7 +337,9 @@ func Warning(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	http.HandleFunc("/", SignIn)
+	http.Handle("/", http.FileServer(assetFS()))
+
+	//http.HandleFunc("/", SignIn)
 	http.HandleFunc("/SignUp", SignUp)
 	http.HandleFunc("/SignUpLoader", SignUpLoader)
 	http.HandleFunc("/Home", Home)

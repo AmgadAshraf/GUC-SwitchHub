@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
 		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="/SignUp.css">
+		<link rel="stylesheet" href="SignUp.css">
 	</head>
 
 	<body>
@@ -23,24 +23,30 @@
                     <h3>Create Account</h3>
                     
 					<div class="form-group">
-						<input type="text" name="firstname" placeholder="First Name" required>
-						<input type="text" name="lastname" placeholder="Last Name" required>
+						<input type="text" placeholder="First Name" class="form-control" name="firstname">
+						<input type="text" placeholder="Last Name" class="form-control" name="lastname">
 					</div>
 					<div class="form-wrapper">
-						<input type="text" name="GUCID" placeholder="GUC ID" required>
+						<input type="text" placeholder="GUC ID" class="form-control" name="gucid">
+						<i class="zmdi zmdi-account"></i>
 					</div>
 					<div class="form-wrapper">
-						<input type="text" name="signupemail" placeholder="Email Address"required>
+							
+						<input type="text" placeholder="Email Address" class="form-control" name="signupemail">
+						<i class="zmdi zmdi-email"></i>
 					</div>
 				
 					<div class="form-wrapper">
-						<input type="password" name="signuppassword" placeholder="Password"required>
+						<input type="password" placeholder="Password" class="form-control" name="signuppassword">
 						<i class="zmdi zmdi-lock"></i>
 					</div>
-
-
-					<input type="submit" value="Sign Up">
-					
+					<div class="form-wrapper">
+						<input type="password" placeholder="Confirm Password" class="form-control" name="confirmsignuppassword">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<button>Register
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
 				
 				</form>
 			</div>

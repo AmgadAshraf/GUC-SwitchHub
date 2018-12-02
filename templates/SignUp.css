@@ -14,14 +14,52 @@ body {
   color: #333;
   font-size: 13px;
   margin: 0; }
+  
+.test{
+  padding: 0px 50px;
+  
+}
 
+.test2{
+  
+  font-size: 10px;
+  text-align: center;
+  
+}
+
+.test3{
+  
+  font-size: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+  width: 25%;
+  
+}
+
+.test4{
+  
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  
+  
+
+   }
+
+ 
+
+  
 input, textarea, select, button {
   font-family: "Poppins-Regular";
   color: #333;
-  font-size: 13px; }
+  font-size: 15px;
+  align-items: center; }
 
 p, h1, h2, h3, h4, h5, h6, ul {
-  margin: 0; }
+  margin: 0;
+   }
 
 img {
   max-width: 100%; }
@@ -30,15 +68,15 @@ ul {
   padding-left: 0;
   margin-bottom: 0; }
 
-
-
- a:link, a:visited {
+  a:link, a:visited {
     
      
      padding: 0px 130px;
     
      text-decoration: none;
  }
+
+ 
 a:hover {
   text-decoration: none;
  }
@@ -47,6 +85,7 @@ a:hover {
   outline: none; }
 
 .wrapper {
+  
   min-height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -68,7 +107,7 @@ a:hover {
     padding-right: 45px; }
   .inner h3 {
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 15px;
     font-family: "Poppins-SemiBold";
     text-align: center;
     margin-bottom: 28px; }
@@ -115,10 +154,11 @@ a:hover {
     font-family: "Poppins-Regular"; }
 
 select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  
+  position: center;
   cursor: pointer;
-  padding-left: 20px; }
+  padding-left: 10px; }
+  
   select option[value=""][disabled] {
     display: none; }
 

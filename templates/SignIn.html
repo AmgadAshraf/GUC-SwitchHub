@@ -9,28 +9,66 @@
 		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
 		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="/SignUp.css">
+		<link rel="stylesheet" type="text/css" href="SignUp.css">
 	</head>
 
 	<body>
-		<title> Login</title>
+
+		<div class="wrapper" style="background-image: url('../static/stylesheets/css/SignUp/images/background.jpg');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="images/front.jpg" alt="">
+				</div>
 				<form action="/Home" method="POST">
+<form>
+                        <br>
+                                
+                        </br>
 
-						<label for="text1"> Email </label>
-						<input type="email" name="email" id="text1" placeholder="Email"required>
-							<br></br>
-						<label for="text2"> Password </label>
-						<input type="password" name="password" id="text2" placeholder="Password"required>
-						<br></br>
-						<input type="submit" value="Login">
-                
-					<br></br>
+                        <br>
+                        
+                        </br>
+
+						<br>
+                        
+                        </br>
+
+                      
+                 
+					<div class="form-wrapper">
+						<input type="email" placeholder="Email" class="form-control" name="email" id="text1">
+						<i class="zmdi zmdi-account"></i>
+					</div>
+
+					<div class="form-wrapper">
+							  
+						<input type="password" placeholder="Password" class="form-control" name="password" id="text2">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<button>Login
+						<i class="zmdi zmdi-arrow-right"></i>
+                    </button>
+                    <br>
+                    
+					</br>
 				</form>
-
-			<form action="/SignUpLoader" method="POST">
-			<input type="submit" value="Sign Up">
+				
+				
+				</form>
 			</form>
-
-
+		
+	
+			</div>
+			<div class="test4">
+			<form action="/SignUpLoader" method="POST">
+				<button type="submit" >Sign Up Here
+					<i class="zmdi zmdi-arrow-right"></i>
+				</button>
+			</div>
+		</div>
+		
 	</body>
+	
+		
+		</form>
 </html>
