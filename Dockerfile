@@ -35,6 +35,7 @@ COPY templates/SignUp.css.map /go/src/app/templates/
 COPY templates/Home.html /go/src/app/templates/
 COPY templates/Final.html /go/src/app/templates/
 COPY templates/Warning.html /go/src/app/templates/
+COPY config.json /go/src/app/
 
 # Run the app
 CMD ["/GUC-SwitchHub" ]

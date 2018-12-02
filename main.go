@@ -2,21 +2,29 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/lib/pq"
 	gomail "gopkg.in/gomail.v2"
 )
 
-const (
-	dbHost     = "db"
-	dbUser     = "root"
-	dbPassword = "secret"
-	dbName     = "GUCSwitchHubDB"
-)
+//Config JSON
+type Config struct {
+	DbHost     string `json:"dbHost"`
+	DbUser     string `json:"dbUser"`
+	DbPassword string `json:"dbPassword"`
+	DbName     string `json:"dbName"`
+}
+
+var dbHost string
+var dbUser string
+var dbPassword string
+var dbName string
 
 var sessionEmail string
 
@@ -25,6 +33,19 @@ var tpl *template.Template
 func init() {
 	tpl = template.Must(template.ParseGlob("/go/src/app/templates/*.html"))
 
+	var configuration Config
+	file, err := os.Open("/go/src/app/config.json")
+	defer file.Close()
+	if err != nil {
+		log.Panic(err)
+	}
+	jsonParser := json.NewDecoder(file)
+	err = jsonParser.Decode(&configuration)
+
+	dbHost = configuration.DbHost
+	dbUser = configuration.DbUser
+	dbPassword = configuration.DbPassword
+	dbName = configuration.DbName
 }
 
 //SignIn handler
