@@ -65,7 +65,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	fnameValues := r.FormValue("firstname")
 	lnameValues := r.FormValue("lastname")
-	gucidValues := r.FormValue("GUCID")
+	gucidValues := r.FormValue("gucid")
 	emailValues := r.FormValue("signupemail")
 	passwordValues := r.FormValue("signuppassword")
 
@@ -112,7 +112,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	http.Redirect(w, r, "/Home", http.StatusSeeOther)
+	http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
 	http.StatusText(200)
 
 }
@@ -142,7 +142,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			//http.Error(w, "You are not registred. Please Sign Up", http.StatusForbidden)
-			http.Redirect(w, r, "/SignIn.html", http.StatusSeeOther)
+			http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
 			return
 		}
 		log.Fatal(err)
@@ -150,13 +150,13 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if emailValue == "" || passwordValue == "" {
-		http.Redirect(w, r, "/SignIn.html", http.StatusSeeOther)
+		http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
 		return
 	}
 
 	if returnedEmail == emailValue && returnedPassword != passwordValue {
 		//http.Error(w, "Incorrect Password", http.StatusForbidden)
-		http.Redirect(w, r, "/wrongPassword.html", http.StatusSeeOther)
+		http.Redirect(w, r, "wrongPassword.html", http.StatusSeeOther)
 		return
 	}
 
@@ -339,7 +339,7 @@ func main() {
 
 	http.Handle("/", http.FileServer(assetFS()))
 
-	//http.HandleFunc("/", SignIn)
+	http.HandleFunc("/SignIn", SignIn)
 	http.HandleFunc("/SignUp", SignUp)
 	http.HandleFunc("/SignUpLoader", SignUpLoader)
 	http.HandleFunc("/Home", Home)

@@ -17,7 +17,7 @@ CREATE TABLE switching (
     didswitch BOOLEAN DEFAULT false
 );
 
-INSERT INTO signedup(fname, lname, id, email, userpassword)
+/*INSERT INTO signedup(fname, lname, id, email, userpassword)
 VALUES
 ('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','a'),
 ('Akram','Ashraf','37-2076','akramashraf96@gmail.com','a'),
@@ -30,7 +30,7 @@ VALUES
 ('Ebram','Nagy','37-5559','ebramnagyy@gmail.com','a'),
 ('Mina','Ishak','34-65459','minaishak10@gmail.com','a');
 
-
+*/
 
 
 /*DROP SCHEMA public CASCADE;
