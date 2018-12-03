@@ -51,7 +51,7 @@ func init() {
 //SignIn handler
 func SignIn(w http.ResponseWriter, r *http.Request) {
 
-	tpl.ExecuteTemplate(w, "SignIn.html", nil)
+	tpl.ExecuteTemplate(w, "index.html", nil)
 
 }
 
@@ -112,7 +112,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 	http.StatusText(200)
 
 }
@@ -142,7 +142,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			//http.Error(w, "You are not registred. Please Sign Up", http.StatusForbidden)
-			http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 		log.Fatal(err)
@@ -150,7 +150,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if emailValue == "" || passwordValue == "" {
-		http.Redirect(w, r, "/SignIn", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
@@ -339,7 +339,7 @@ func main() {
 
 	http.Handle("/", http.FileServer(assetFS()))
 
-	http.HandleFunc("/SignIn", SignIn)
+	//http.HandleFunc("/", SignIn)
 	http.HandleFunc("/SignUp", SignUp)
 	http.HandleFunc("/SignUpLoader", SignUpLoader)
 	http.HandleFunc("/Home", Home)
