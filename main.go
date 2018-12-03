@@ -88,7 +88,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else {
-		http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+		http.Redirect(w, r, "sameID.html", http.StatusSeeOther)
 		return
 	}
 	var returnedEmail string
@@ -102,7 +102,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else {
-		http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
+		http.Redirect(w, r, "sameMail.html", http.StatusSeeOther)
 		return
 	}
 
