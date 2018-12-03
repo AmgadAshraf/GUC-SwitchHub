@@ -68,6 +68,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	gucidValues := r.FormValue("gucid")
 	emailValues := r.FormValue("signupemail")
 	passwordValues := r.FormValue("signuppassword")
+	confirmPasswordValues := r.FormValue("confirmsignuppassword")
 
 	dbInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbUser, dbPassword, dbName)
@@ -103,6 +104,10 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		http.Redirect(w, r, "sameMail.html", http.StatusSeeOther)
+		return
+	}
+	if passwordValues != confirmPasswordValues {
+		http.Redirect(w, r, "SignUpLoader", http.StatusSeeOther)
 		return
 	}
 
