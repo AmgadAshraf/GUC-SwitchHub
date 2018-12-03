@@ -36,3 +36,9 @@ You are required to create a **JSON** config file, named **config.json**, place 
 	    "dbPassword": "examplePassword",
         "dbName": "exampleDbName"
     }
+    
+### Instructions to run govendor:
+1. **go get -u github.com/kardianos/govendor** (If it is not installed)
+2. Inside the project directory run the **govendor init** command to create the vendor folder and vendor.json file
+3. run **govendor add +e** command to add the dependencies to the vendor.json file.
+
