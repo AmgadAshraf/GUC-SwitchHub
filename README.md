@@ -9,7 +9,7 @@ GUC SwitchHub automates the hassle of tutorial group switching between students 
 
 3. Navigate to the project folder using the terminal.
 
-4. Use **docker-compose up -d --build** command to start the website and all the accompained services.
+4. Use **docker-compose up -d --build** command to start the website and all the accompained services after adding the config.json file (Details below).
 
 **Command Flags**:  
    **-d**: used to run the command in the daemon mode.  
