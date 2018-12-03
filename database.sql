@@ -1,4 +1,4 @@
-CREATE TABLE signedup (
+/*CREATE TABLE signedup (
     fname VARCHAR NOT NULL,
     lname VARCHAR NOT NULL,
     id VARCHAR UNIQUE NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE switching (
     didswitch BOOLEAN DEFAULT false
 );
 
-/*INSERT INTO signedup(fname, lname, id, email, userpassword)
+INSERT INTO signedup(fname, lname, id, email, userpassword)
 VALUES
 ('Amgad','Ashraf','37-2058','amgadramses96@gmail.com','a'),
 ('Akram','Ashraf','37-2076','akramashraf96@gmail.com','a'),
